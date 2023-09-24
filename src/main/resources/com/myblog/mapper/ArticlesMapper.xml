@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myblog.mapper.ArticlesMapper">
+    
+    <resultMap id="ArticlesColumns" type="com.myblog.bean.Articles">
+        <id property="articleId" column="article_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="authorId" column="author_id" />
+        <result property="publicationDate" column="publication_date" />
+        <result property="tag" column="tag" />
+        <result property="views" column="views" />
+        <result property="likes" column="likes" />
+        <result property="comments" column="comments" />
+    </resultMap>
+
+    <select id="getArticlesByLatest" resultMap="ArticlesColumns">
+        select * from articles
+        where article_id <![CDATA[ >= ]]> (select article_id from articles limit #{indexOfFirstArticle},1)
+        limit #{articlesPerPage};
+    </select>
+
+    <select id="getArticleById" resultMap="ArticlesColumns">
+        SELECT * FROM articles WHERE article_id = #{articleId}
+    </select>
+
+    <select id="getTotalNumberOfArticles" resultType="Long">
+        SELECT COUNT(*) FROM articles;
+    </select>
+    
+</mapper>
