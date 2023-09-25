@@ -29,5 +29,29 @@
     <select id="getTotalNumberOfArticles" resultType="Long">
         SELECT COUNT(*) FROM articles;
     </select>
+
+    <update id="updateArticleById">
+        UPDATE articles
+        <set>
+            <!-- 使用动态 SQL 设置属性 -->
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="authorId != null">author_id = #{authorId},</if>
+            <if test="publicationDate != null">publication_date = #{publicationDate},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="views != null">views = views + #{views},</if>
+            <if test="likes != null">likes = views + #{likes},</if>
+            <if test="comments != null">comments = comments + #{comments},</if>
+        </set>
+        WHERE article_id = #{articleId}
+    </update>
+
+    <select id="getTrendingArticlesByLimit" resultMap="ArticlesColumns">
+        SELECT * FROM articles
+        ORDER BY views DESC
+        <if test="limit != -1">
+            LIMIT 0,#{limit};
+        </if>
+    </select>
     
 </mapper>

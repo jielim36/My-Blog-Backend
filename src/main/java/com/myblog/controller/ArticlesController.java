@@ -3,10 +3,7 @@ package com.myblog.controller;
 import com.myblog.bean.Articles;
 import com.myblog.service.ArticlesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,13 +26,25 @@ public class ArticlesController {
 
     @GetMapping("/{articleId}")
     public Articles getArticleById(@PathVariable("articleId") Long articleId){
-        System.out.println("in...");
         return articlesService.getArticleById(articleId);
     }
 
     @GetMapping("/total")
     public Long getTotalNumberOfArticles(){
         return articlesService.getTotalNumberOfArticles();
+    }
+
+    @PutMapping("/{articleId}")
+    public void updateArticleById(@PathVariable("articleId")Long articleId ,
+                                  @RequestBody Articles newArticle){
+        System.out.println("In update view...ID:" + articleId);
+        System.out.println(newArticle);
+        articlesService.updateArticleById(articleId,newArticle);
+    }
+
+    @GetMapping("/trending/{limit}")
+    public List<Articles> getTrendingArticles(@PathVariable("limit") Long limit){
+        return articlesService.getTrendingArticlesByLimit(limit);
     }
 
 }

@@ -16,4 +16,7 @@ public interface ArticlesMapper {
 
     Long getTotalNumberOfArticles();
 
+    void updateArticleById(Articles article);
+
+    List<Articles> getTrendingArticlesByLimit(@Param("limit")Long limit);
 }

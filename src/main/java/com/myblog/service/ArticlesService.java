@@ -29,4 +29,13 @@ public class ArticlesService{
         return articlesMapper.getTotalNumberOfArticles();
     }
 
+    public void updateArticleById(Long articleId ,Articles article){
+        article.setArticleId(articleId);
+        articlesMapper.updateArticleById(article);
+    }
+
+    public List<Articles> getTrendingArticlesByLimit(Long limit){
+        return articlesMapper.getTrendingArticlesByLimit(limit);
+    }
+
 }
