@@ -22,12 +22,23 @@
         limit #{articlesPerPage};
     </select>
 
+    <select id="getArticlesByRecommended" resultMap="ArticlesColumns">
+        select * from articles
+        where article_id <![CDATA[ >= ]]> (select article_id from articles limit #{indexOfFirstArticle},1)
+        ORDER BY likes DESC
+        limit #{articlesPerPage};
+    </select>
+
     <select id="getArticleById" resultMap="ArticlesColumns">
         SELECT * FROM articles WHERE article_id = #{articleId}
     </select>
 
     <select id="getTotalNumberOfArticles" resultType="Long">
         SELECT COUNT(*) FROM articles;
+    </select>
+
+    <select id="getTotalNumberOfArticlesByTitle" resultType="Long">
+        SELECT COUNT(*) FROM articles WHERE title LIKE CONCAT('%',#{title},'%');
     </select>
 
     <update id="updateArticleById">
@@ -52,6 +63,17 @@
         <if test="limit != -1">
             LIMIT 0,#{limit};
         </if>
+    </select>
+
+    <select id="getArticlesByContent" resultMap="ArticlesColumns">
+        SELECT * FROM articles WHERE content LIKE CONCAT('%',#{column},'%');
+    </select>
+
+    <select id="getArticlesTitleByLimit" resultMap="ArticlesColumns">
+        SELECT * FROM articles
+        WHERE title LIKE CONCAT('%',#{title},'%')
+        ORDER BY publication_date
+        LIMIT #{indexOfFirstArticle},#{articlesPerPage};
     </select>
     
 </mapper>

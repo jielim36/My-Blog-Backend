@@ -12,11 +12,23 @@ public interface ArticlesMapper {
     List<Articles> getArticlesByLatest(@Param("indexOfFirstArticle") Integer indexOfFirstArticle,
                                        @Param("articlesPerPage") Integer articlesPerPage);
 
+    List<Articles> getArticlesByRecommended(@Param("indexOfFirstArticle") Integer indexOfFirstArticle,
+                                       @Param("articlesPerPage") Integer articlesPerPage);
+
     Articles getArticleById(@Param("articleId") Long articleId);
 
     Long getTotalNumberOfArticles();
 
+    Long getTotalNumberOfArticlesByTitle(@Param("title")String title);
+
     void updateArticleById(Articles article);
 
     List<Articles> getTrendingArticlesByLimit(@Param("limit")Long limit);
+
+    List<Articles> getArticlesByContent(@Param("content")String content );
+
+    List<Articles> getArticlesTitleByLimit(@Param("title")String title,
+                                      @Param("indexOfFirstArticle") Integer indexOfFirstArticle,
+                                      @Param("articlesPerPage") Integer articlesPerPage);
+
 }

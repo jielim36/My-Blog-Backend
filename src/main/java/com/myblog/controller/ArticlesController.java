@@ -24,6 +24,12 @@ public class ArticlesController {
         return articlesService.getArticlesByLatest(indexOfFirstArticle, articlePerPage);
     }
 
+    @GetMapping("/recommended/{indexOfFirstArticle}/{articlesPerPage}")
+    public List<Articles> getArticlesByRecommended(@PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
+                                              @PathVariable("articlesPerPage") Integer articlePerPage){
+        return articlesService.getArticlesByRecommended(indexOfFirstArticle, articlePerPage);
+    }
+
     @GetMapping("/{articleId}")
     public Articles getArticleById(@PathVariable("articleId") Long articleId){
         return articlesService.getArticleById(articleId);
@@ -32,6 +38,11 @@ public class ArticlesController {
     @GetMapping("/total")
     public Long getTotalNumberOfArticles(){
         return articlesService.getTotalNumberOfArticles();
+    }
+
+    @GetMapping("/total/{title}")
+    public Long getTotalNumberOfArticlesByTitle(@PathVariable("title")String title){
+        return articlesService.getTotalNumberOfArticlesByTitle(title);
     }
 
     @PutMapping("/{articleId}")
@@ -47,4 +58,15 @@ public class ArticlesController {
         return articlesService.getTrendingArticlesByLimit(limit);
     }
 
+    @GetMapping("/content/{content}")
+    public List<Articles> getArticlesByContent(@PathVariable("content") String content){
+        return articlesService.getArticlesByContent(content);
+    }
+
+    @GetMapping("/title/{title}/{indexOfFirstArticle}/{articlesPerPage}")
+    public List<Articles> getArticlesByTitle(@PathVariable("title") String title,
+                                             @PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
+                                             @PathVariable("articlesPerPage") Integer articlePerPage){
+        return articlesService.getArticlesTitleByLimit(title,indexOfFirstArticle,articlePerPage);
+    }
 }

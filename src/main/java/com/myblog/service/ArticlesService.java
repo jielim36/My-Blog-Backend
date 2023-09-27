@@ -21,12 +21,20 @@ public class ArticlesService{
         return articlesMapper.getArticlesByLatest(indexOfFirstArticle, articlesPerPage);
     }
 
+    public List<Articles> getArticlesByRecommended(Integer indexOfFirstArticle , Integer articlesPerPage){
+        return articlesMapper.getArticlesByRecommended(indexOfFirstArticle, articlesPerPage);
+    }
+
     public Articles getArticleById(Long articleId){
         return articlesMapper.getArticleById(articleId);
     }
 
     public Long getTotalNumberOfArticles(){
         return articlesMapper.getTotalNumberOfArticles();
+    }
+
+    public Long getTotalNumberOfArticlesByTitle(String title){
+        return articlesMapper.getTotalNumberOfArticlesByTitle(title);
     }
 
     public void updateArticleById(Long articleId ,Articles article){
@@ -36,6 +44,14 @@ public class ArticlesService{
 
     public List<Articles> getTrendingArticlesByLimit(Long limit){
         return articlesMapper.getTrendingArticlesByLimit(limit);
+    }
+    public List<Articles> getArticlesByContent(String content){
+        return articlesMapper.getArticlesByContent(content);
+    }
+    public List<Articles> getArticlesTitleByLimit(String title ,
+                                             Integer indexOfFirstArticle,
+                                             Integer articlePerPage){
+        return articlesMapper.getArticlesTitleByLimit(title ,indexOfFirstArticle , articlePerPage);
     }
 
 }
