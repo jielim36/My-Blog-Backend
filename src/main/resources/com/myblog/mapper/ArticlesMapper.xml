@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myblog.mapper.ArticlesMapper">
+    
+    <resultMap id="ArticlesColumns" type="com.myblog.bean.Articles">
+        <id property="articleId" column="article_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="authorId" column="author_id" />
+        <result property="publicationDate" column="publication_date" />
+        <result property="tag" column="tag" />
+        <result property="views" column="views" />
+        <result property="likes" column="likes" />
+        <result property="comments" column="comments" />
+    </resultMap>
+
+    <select id="getArticlesByLatest" resultMap="ArticlesColumns">
+        select * from articles
+        where article_id <![CDATA[ >= ]]> (select article_id from articles limit #{indexOfFirstArticle},1)
+        limit #{articlesPerPage};
+    </select>
+
+    <select id="getArticlesByRecommended" resultMap="ArticlesColumns">
+        select * from articles
+        where article_id <![CDATA[ >= ]]> (select article_id from articles limit #{indexOfFirstArticle},1)
+        ORDER BY likes DESC
+        limit #{articlesPerPage};
+    </select>
+
+    <select id="getArticleById" resultMap="ArticlesColumns">
+        SELECT * FROM articles WHERE article_id = #{articleId}
+    </select>
+
+    <select id="getTotalNumberOfArticles" resultType="Long">
+        SELECT COUNT(*) FROM articles;
+    </select>
+
+    <select id="getTotalNumberOfArticlesByTitle" resultType="Long">
+        SELECT COUNT(*) FROM articles WHERE title LIKE CONCAT('%',#{title},'%');
+    </select>
+
+    <update id="updateArticleById">
+        UPDATE articles
+        <set>
+            <!-- 使用动态 SQL 设置属性 -->
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="authorId != null">author_id = #{authorId},</if>
+            <if test="publicationDate != null">publication_date = #{publicationDate},</if>
+            <if test="tag != null">tag = #{tag},</if>
+            <if test="views != null">views = views + #{views},</if>
+            <if test="likes != null">likes = views + #{likes},</if>
+            <if test="comments != null">comments = comments + #{comments},</if>
+        </set>
+        WHERE article_id = #{articleId}
+    </update>
+
+    <select id="getTrendingArticlesByLimit" resultMap="ArticlesColumns">
+        SELECT * FROM articles
+        ORDER BY views DESC
+        <if test="limit != -1">
+            LIMIT 0,#{limit};
+        </if>
+    </select>
+
+    <select id="getArticlesByContent" resultMap="ArticlesColumns">
+        SELECT * FROM articles WHERE content LIKE CONCAT('%',#{column},'%');
+    </select>
+
+    <select id="getArticlesTitleByLimit" resultMap="ArticlesColumns">
+        SELECT * FROM articles
+        WHERE title LIKE CONCAT('%',#{title},'%')
+        ORDER BY publication_date
+        LIMIT #{indexOfFirstArticle},#{articlesPerPage};
+    </select>
+    
+</mapper>
