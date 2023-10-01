@@ -54,4 +54,8 @@ public class ArticlesService{
         return articlesMapper.getArticlesTitleByLimit(title ,indexOfFirstArticle , articlePerPage);
     }
 
+    public List<Articles> getArticlesByAuthorId(Long authorId){
+        return articlesMapper.getArticlesByAuthorId(authorId);
+    }
+
 }

@@ -44,7 +44,6 @@ public class JwtAthFilter extends OncePerRequestFilter {
 //            UserDetails userDetails = userDao.findUserByEmail(userEmail);
             UserDetails userDetails = new UserLogin(userService.getUserByEmail(userEmail));
 
-            final boolean isTokenValid;//TODO tobe implemented
             if (jwtUtils.validateToken(jwtToken,userDetails)){
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());

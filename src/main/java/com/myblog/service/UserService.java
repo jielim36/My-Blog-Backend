@@ -1,6 +1,7 @@
 package com.myblog.service;
 
 import com.myblog.bean.User;
+import com.myblog.config.JwtUtils;
 import com.myblog.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final JwtUtils jwtUtils;
 
     @Autowired
-    public UserService(UserMapper userMapper) {
+    public UserService(UserMapper userMapper, JwtUtils jwtUtils) {
         this.userMapper = userMapper;
+        this.jwtUtils = jwtUtils;
     }
 
     public User verifyUserLogin(User user){
@@ -29,6 +32,12 @@ public class UserService {
     }
 
     public User getUserByEmail(String email){
+        return userMapper.getUserByEmail(email);
+    }
+
+    public User getUserByToken(String token){
+        String jwt = token.substring(7);//remove the first 7 words: token = "bearer <token>" <- cut bearer and space
+        String email = jwtUtils.extractUsername(jwt);//here is convert jwt token into email
         return userMapper.getUserByEmail(email);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600 , origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/articles")
 public class ArticlesController {
@@ -68,5 +69,10 @@ public class ArticlesController {
                                              @PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
                                              @PathVariable("articlesPerPage") Integer articlePerPage){
         return articlesService.getArticlesTitleByLimit(title,indexOfFirstArticle,articlePerPage);
+    }
+
+    @GetMapping("/author/{authorId}")
+    public List<Articles> getArticlesByAuthorId(@PathVariable("authorId") Long authorId){
+        return articlesService.getArticlesByAuthorId(authorId);
     }
 }

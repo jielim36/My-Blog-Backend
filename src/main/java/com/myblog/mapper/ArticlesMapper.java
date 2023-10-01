@@ -31,4 +31,6 @@ public interface ArticlesMapper {
                                       @Param("indexOfFirstArticle") Integer indexOfFirstArticle,
                                       @Param("articlesPerPage") Integer articlesPerPage);
 
+    List<Articles> getArticlesByAuthorId(@Param("authorId")Long authorId);
+
 }

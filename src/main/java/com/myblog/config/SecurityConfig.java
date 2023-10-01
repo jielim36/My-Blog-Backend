@@ -6,6 +6,7 @@ import com.myblog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -20,6 +21,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.time.Duration;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -35,13 +42,14 @@ public class SecurityConfig {
 
         http
                 .csrf().disable()
+                .cors().and()
                 .authorizeRequests()
-                .antMatchers("/**/auth/**")
-                .permitAll()
+                .antMatchers("/**/auth/**").permitAll()
                 .antMatchers("/secure-endpoint").hasRole("USER")
+                .antMatchers("/users/login").permitAll()
+                .antMatchers("/articles/author/**").authenticated()
                 .antMatchers("/articles/**").permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -84,6 +92,20 @@ public class SecurityConfig {
                 return new UserLogin(user);
             }
         };
+    }
+
+    @Order(1)
+    @Bean
+    CorsConfigurationSource corsConfigurationSource(){
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("*"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
+        corsConfiguration.setMaxAge(Duration.ofHours(1));
+        source.registerCorsConfiguration("/**",corsConfiguration);
+        return source;
     }
 
 }

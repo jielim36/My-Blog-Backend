@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-//    private final UserDao userDao;
     private final UserService userService;
     private final JwtUtils jwtUtils;
 
@@ -29,7 +28,7 @@ public class AuthenticationController {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-//        final UserDetails user = userDao.findUserByEmail(request.getEmail());
+
         final UserDetails user = new UserLogin(userService.getUserByEmail(request.getEmail()));
         if (user != null){
             return ResponseEntity.ok(jwtUtils.generateToken(user));

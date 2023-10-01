@@ -75,5 +75,9 @@
         ORDER BY publication_date
         LIMIT #{indexOfFirstArticle},#{articlesPerPage};
     </select>
+
+    <select id="getArticlesByAuthorId" resultMap="ArticlesColumns">
+        SELECT * FROM articles WHERE author_id = #{authorId};
+    </select>
     
 </mapper>
