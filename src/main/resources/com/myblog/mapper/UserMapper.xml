@@ -5,7 +5,7 @@
 <mapper namespace="com.myblog.mapper.UserMapper">
 
     <resultMap id="userResultMap" type="com.myblog.bean.User">
-        <id property="userId" column="id" />
+        <id property="userId" column="user_id" />
         <result property="userName" column="user_name" />
         <result property="password" column="password" />
         <result property="status" column="status" />

@@ -79,5 +79,9 @@
     <select id="getArticlesByAuthorId" resultMap="ArticlesColumns">
         SELECT * FROM articles WHERE author_id = #{authorId};
     </select>
+
+    <select id="getTotalNumberOfArticlesByAuthor" resultType="Long">
+        SELECT COUNT(article_id) FROM articles WHERE author_id = #{authorId}
+    </select>
     
 </mapper>

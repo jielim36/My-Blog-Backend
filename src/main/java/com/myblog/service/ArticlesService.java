@@ -37,6 +37,10 @@ public class ArticlesService{
         return articlesMapper.getTotalNumberOfArticlesByTitle(title);
     }
 
+    public Long getTotalNumberOfArticlesByAuthor(Long userId){
+        return articlesMapper.getTotalNumberOfArticlesByAuthor(userId);
+    }
+
     public void updateArticleById(Long articleId ,Articles article){
         article.setArticleId(articleId);
         articlesMapper.updateArticleById(article);
