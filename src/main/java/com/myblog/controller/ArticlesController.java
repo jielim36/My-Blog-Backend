@@ -22,13 +22,17 @@ public class ArticlesController {
     @GetMapping("/latest/{indexOfFirstArticle}/{articlesPerPage}")
     public List<Articles> getArticlesByLatest(@PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
                                               @PathVariable("articlesPerPage") Integer articlePerPage){
-        return articlesService.getArticlesByLatest(indexOfFirstArticle, articlePerPage);
+        List<Articles> articlesByLatest = articlesService.getArticlesByLatest(indexOfFirstArticle, articlePerPage);
+        articlesByLatest.forEach(System.out::println);
+        return articlesByLatest;
     }
 
     @GetMapping("/recommended/{indexOfFirstArticle}/{articlesPerPage}")
     public List<Articles> getArticlesByRecommended(@PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
                                               @PathVariable("articlesPerPage") Integer articlePerPage){
-        return articlesService.getArticlesByRecommended(indexOfFirstArticle, articlePerPage);
+        List<Articles> articlesByRecommended = articlesService.getArticlesByRecommended(indexOfFirstArticle, articlePerPage);
+        articlesByRecommended.forEach(System.out::println);
+        return articlesByRecommended;
     }
 
     @GetMapping("/{articleId}")

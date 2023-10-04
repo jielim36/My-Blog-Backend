@@ -5,6 +5,7 @@ import com.myblog.bean.UserLogin;
 import com.myblog.config.JwtUtils;
 import com.myblog.dto.AuthenticationRequest;
 import com.myblog.service.UserService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,6 +48,9 @@ public class UserController {
         } catch (BadCredentialsException ex) {
             System.out.println("Authentication failed: " + ex.getMessage());
             return ResponseEntity.status(401).body("Authentication failed: " + ex.getMessage());
+        }catch (ExpiredJwtException ex) {
+            System.out.println("Authentication failed: " + ex.getMessage());
+            return ResponseEntity.status(402).body("Authentication failed: " + ex.getMessage());
         } catch (Exception e) {
             System.out.println("Some error has occurred: " + e.getMessage());
             return ResponseEntity.status(500).body("Some error has occurred");
