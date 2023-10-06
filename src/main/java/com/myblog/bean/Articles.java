@@ -11,6 +11,7 @@ public class Articles {
     private String title;
     private String content;
     private Long authorId;
+    private String authorName;//authorName is custom attribute (it is not exists in database articles table)
     private Date publicationDate;
     private String tag;
     private Long views;
@@ -31,6 +32,29 @@ public class Articles {
         this.likes = likes;
         this.comments = comments;
     }
+
+    //include authorName
+    public Articles(Long articleId, String title, String content, Long authorId, String authorName, Date publicationDate, String tag, Long views, Long likes, Long comments) {
+        this.articleId = articleId;
+        this.title = title;
+        this.content = content;
+        this.authorId = authorId;
+        this.authorName = authorName;
+        this.publicationDate = publicationDate;
+        this.tag = tag;
+        this.views = views;
+        this.likes = likes;
+        this.comments = comments;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
     public Long getArticleId() {
         return articleId;
     }

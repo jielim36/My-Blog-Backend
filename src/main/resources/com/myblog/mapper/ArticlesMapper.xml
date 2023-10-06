@@ -16,19 +16,38 @@
         <result property="comments" column="comments" />
     </resultMap>
 
-    <select id="getArticlesByLatest" resultMap="ArticlesColumns">
-        select * from articles ORDER BY publication_date desc LIMIT #{indexOfFirstArticle},#{articlesPerPage}
+    <resultMap id="ArticlesAndAuthorName" type="com.myblog.bean.Articles">
+        <id property="articleId" column="article_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="authorId" column="author_id" />
+        <result property="publicationDate" column="publication_date" />
+        <result property="tag" column="tag" />
+        <result property="views" column="views" />
+        <result property="likes" column="likes" />
+        <result property="comments" column="comments" />
+        <!-- 添加 user_name 到 resultMap -->
+        <result property="authorName" column="user_name" />
+    </resultMap>
+
+    <select id="getArticlesByLatest" resultMap="ArticlesAndAuthorName">
+        select articles.*,`user`.user_name from articles,`user`
+        where articles.author_id = `user`.user_id
+        ORDER BY publication_date desc LIMIT #{indexOfFirstArticle},#{articlesPerPage}
     </select>
 
-    <select id="getArticlesByRecommended" resultMap="ArticlesColumns">
-        select * from articles
+    <select id="getArticlesByRecommended" resultMap="ArticlesAndAuthorName">
+        select articles.*,`user`.user_name from articles,`user`
         where article_id <![CDATA[ >= ]]> (select article_id from articles limit #{indexOfFirstArticle},1)
+        AND articles.author_id = `user`.user_id
         ORDER BY likes DESC
         limit #{articlesPerPage};
     </select>
 
-    <select id="getArticleById" resultMap="ArticlesColumns">
-        SELECT * FROM articles WHERE article_id = #{articleId}
+    <select id="getArticleById" resultMap="ArticlesAndAuthorName">
+        select articles.*,`user`.user_name from articles,`user`
+        WHERE article_id = #{articleId}
+        AND articles.author_id = `user`.user_id
     </select>
 
     <select id="getTotalNumberOfArticles" resultType="Long">
