@@ -22,17 +22,14 @@ public class ArticlesController {
     @GetMapping("/latest/{indexOfFirstArticle}/{articlesPerPage}")
     public List<Articles> getArticlesByLatest(@PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
                                               @PathVariable("articlesPerPage") Integer articlePerPage){
-        List<Articles> articlesByLatest = articlesService.getArticlesByLatest(indexOfFirstArticle, articlePerPage);
-        articlesByLatest.forEach(System.out::println);
-        return articlesByLatest;
+        return articlesService.getArticlesByLatest(indexOfFirstArticle, articlePerPage);
     }
 
     @GetMapping("/recommended/{indexOfFirstArticle}/{articlesPerPage}")
     public List<Articles> getArticlesByRecommended(@PathVariable("indexOfFirstArticle") Integer indexOfFirstArticle,
                                               @PathVariable("articlesPerPage") Integer articlePerPage){
-        List<Articles> articlesByRecommended = articlesService.getArticlesByRecommended(indexOfFirstArticle, articlePerPage);
-        articlesByRecommended.forEach(System.out::println);
-        return articlesByRecommended;
+        return  articlesService.getArticlesByRecommended(indexOfFirstArticle, articlePerPage);
+
     }
 
     @GetMapping("/{articleId}")
@@ -53,8 +50,6 @@ public class ArticlesController {
     @PutMapping("/{articleId}")
     public void updateArticleById(@PathVariable("articleId")Long articleId ,
                                   @RequestBody Articles newArticle){
-        System.out.println("In update view...ID:" + articleId);
-        System.out.println(newArticle);
         articlesService.updateArticleById(articleId,newArticle);
     }
 
@@ -79,4 +74,11 @@ public class ArticlesController {
     public List<Articles> getArticlesByAuthorId(@PathVariable("authorId") Long authorId){
         return articlesService.getArticlesByAuthorId(authorId);
     }
+
+    @PostMapping("/create")
+    public Integer createArticle(@RequestBody Articles articles){
+        System.out.println(articles);
+        return articlesService.createArticle(articles);
+    }
+
 }

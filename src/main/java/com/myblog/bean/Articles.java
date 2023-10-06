@@ -31,7 +31,6 @@ public class Articles {
         this.likes = likes;
         this.comments = comments;
     }
-
     public Long getArticleId() {
         return articleId;
     }

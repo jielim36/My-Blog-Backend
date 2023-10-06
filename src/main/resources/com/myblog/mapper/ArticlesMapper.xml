@@ -81,5 +81,9 @@
     <select id="getTotalNumberOfArticlesByAuthor" resultType="Long">
         SELECT COUNT(article_id) FROM articles WHERE author_id = #{authorId}
     </select>
+
+    <insert id="createArticle">
+        INSERT INTO articles VALUES (NULL,#{article.title},#{article.content},#{article.authorId},NOW(),#{article.tag},0,0,0);
+    </insert>
     
 </mapper>

@@ -18,12 +18,10 @@ public class ArticlesService{
     }
 
     public List<Articles> getArticlesByLatest(Integer indexOfFirstArticle , Integer articlesPerPage){
-        System.out.println("latest");
         return articlesMapper.getArticlesByLatest(indexOfFirstArticle, articlesPerPage);
     }
 
     public List<Articles> getArticlesByRecommended(Integer indexOfFirstArticle , Integer articlesPerPage){
-        System.out.println("recommended");
         return articlesMapper.getArticlesByRecommended(indexOfFirstArticle, articlesPerPage);
     }
 
@@ -62,6 +60,10 @@ public class ArticlesService{
 
     public List<Articles> getArticlesByAuthorId(Long authorId){
         return articlesMapper.getArticlesByAuthorId(authorId);
+    }
+
+    public Integer createArticle(Articles articles){
+        return articlesMapper.createArticle(articles);
     }
 
 }

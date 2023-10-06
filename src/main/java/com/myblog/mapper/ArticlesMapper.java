@@ -35,4 +35,6 @@ public interface ArticlesMapper {
 
     List<Articles> getArticlesByAuthorId(@Param("authorId")Long authorId);
 
+    Integer createArticle(@Param("article")Articles articles);
+
 }
