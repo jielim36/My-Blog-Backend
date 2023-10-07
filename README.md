@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # <center>MyBlog</center>
 <center>
     <strong>
@@ -34,13 +33,13 @@
 
 ## About MyBlog
 ###### Home page
-![Home page](link...)
+![Home page](https://github.com/jielim36/My-Blog-Backend/blob/main/MyBlog%20Screenshot/home.png)
 ###### Creator Hub
-![Creator Hub](link...)
+![Creator Hub](https://github.com/jielim36/My-Blog-Backend/blob/main/MyBlog%20Screenshot/creatorhub_content.png)
 ###### Article Editor (Support Markdown)
-![Article Editor](link...)
+![Article Editor](https://github.com/jielim36/My-Blog-Backend/blob/main/MyBlog%20Screenshot/Article_editor.png)
 ###### Article view
-![Article view](link...)
+![Article view](https://github.com/jielim36/My-Blog-Backend/blob/main/MyBlog%20Screenshot/Article_view.png)
 
 
 ### Project Features
@@ -72,6 +71,3 @@
 [TanStack-url]: https://tanstack.com/
 [React-markdown.png]: https://img.shields.io/badge/React--markdown-61DAFB?style=for-the-badge
 [React-markdown-url]: https://github.com/remarkjs/react-markdown
-=======
-# My-Blog-Backend
->>>>>>> 937941330b87e79f9418c4cbc900fbcb652b137d
